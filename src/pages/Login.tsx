@@ -117,6 +117,9 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                     {emailIsInvalid && <Text style={styles.error}>invalid email</Text>}
                 </View>
                 <TextInput
+                    accessibilityLabel="Email"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
                     style={[styles.input, emailIsInvalid && styles.invalid]}
                     onChangeText={(value) => setEmail(value)}
                     onEndEditing={isEmailInvalid}
@@ -127,6 +130,7 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                     {passwordIsInvalid && <Text style={styles.error}>invalid password</Text>}
                 </View>
                 <TextInput
+                    accessibilityLabel="Password"
                     style={[styles.input, passwordIsInvalid && styles.invalid]}
                     secureTextEntry={true}
                     onChangeText={(value) => setPassword(value)}
