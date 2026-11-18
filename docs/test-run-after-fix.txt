@@ -1,0 +1,60 @@
+PASS src/pages/__tests__/Login.test.tsx
+  Login screen
+    ✓ lets Luigi Carluccio log in without an "invalid email" message (99 ms)
+    ✓ lets John Silva log in without an "invalid email" message (59 ms)
+    ✓ still lets a .com user log in (58 ms)
+    ✓ sends the email trimmed and in lowercase (58 ms)
+    ✓ shows "invalid email" and does not call the server for a bad email (6 ms)
+    ✓ shows "invalid password" and does not call the server for a short password (6 ms)
+
+PASS src/utils/__tests__/validateEmail.test.ts
+  validateEmail
+    ✓ answers quickly for a long invalid input (no regex freeze)
+    users reported by QA (the bug)
+      ✓ accepts the email of Luigi Carluccio (luigi@carluccio.it) (1 ms)
+      ✓ accepts the email of John Silva (john@silva.com.br)
+    every registered user can pass the email check
+      ✓ accepts ulla.ulriksen@example.com
+      ✓ accepts yasemin.akyuz@example.com
+      ✓ accepts luigi@carluccio.it
+      ✓ accepts john@silva.com.br
+      ✓ accepts elif.aksit@example.com
+      ✓ accepts anne.vanwingerden@example.com
+      ✓ accepts gisele.oliveira@example.com
+      ✓ accepts sara.barnett@example.com
+      ✓ accepts azuma.gamez@example.com
+      ✓ accepts eva.young@example.com
+    other valid emails
+      ✓ accepts a .com address (ulla.ulriksen@example.com)
+      ✓ accepts a 2-letter country domain (someone@example.ca)
+      ✓ accepts a 2-letter country domain after a second-level domain (someone@example.co.uk)
+      ✓ accepts a 4-letter domain (someone@example.info)
+      ✓ accepts a long domain (someone@example.travel)
+      ✓ accepts a subdomain (someone@mail.example.org)
+      ✓ accepts a hyphen in the domain (someone@my-company.com) (1 ms)
+      ✓ accepts a hyphen and an underscore in the name (first-last_name@example.com)
+      ✓ accepts a plus tag in the name (someone+volunteam@example.com)
+      ✓ accepts digits (user123@example123.com)
+      ✓ accepts uppercase letters (Luigi@Carluccio.IT)
+      ✓ accepts spaces around it (  luigi@carluccio.it  )
+    invalid emails are still rejected
+      ✓ rejects an empty string ()
+      ✓ rejects only spaces (   )
+      ✓ rejects no @ (luigi.carluccio.it)
+      ✓ rejects no name before @ (@carluccio.it)
+      ✓ rejects no domain after @ (luigi@)
+      ✓ rejects no dot in the domain (luigi@carluccio)
+      ✓ rejects a 1-letter ending (luigi@carluccio.i)
+      ✓ rejects a domain ending in a dot (luigi@carluccio.it.)
+      ✓ rejects two dots in a row (luigi@carluccio..it)
+      ✓ rejects a name starting with a dot (.luigi@carluccio.it)
+      ✓ rejects two @ signs (luigi@@carluccio.it) (1 ms)
+      ✓ rejects a space inside (luigi carluccio@carluccio.it)
+      ✓ rejects digits in the ending (luigi@carluccio.123)
+  sanitizeEmail
+    ✓ trims spaces and lowercases
+
+Test Suites: 2 passed, 2 total
+Tests:       45 passed, 45 total
+Snapshots:   0 total
+Time:        3.409 s, estimated 5 s

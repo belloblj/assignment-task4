@@ -1,17 +1,32 @@
 import axios, { AxiosResponse } from 'axios';
+import Constants from 'expo-constants';
+import { Platform } from 'react-native';
+
+const PORT = 3333;
+
+// Works out where json-server is running, so the address doesn't have to be edited by hand:
+// - Android emulator: 10.0.2.2 is the emulator's alias for the laptop.
+// - Real phone (Expo Go / dev build): the same laptop IP that Metro is served from.
+// You can still override it by setting API_URL when starting Expo.
+const getBaseUrl = (): string => {
+    const override = Constants.expoConfig?.extra?.API_URL;
+    if (override) return override;
+
+    if (Platform.OS === 'android' && !Constants.isDevice) return `http://10.0.2.2:${PORT}`;
+
+    const hostUri: string | undefined =
+        (Constants.expoConfig as any)?.hostUri ??
+        Constants.manifest?.hostUri ??
+        Constants.manifest2?.extra?.expoGo?.debuggerHost;
+    const metroHost = hostUri?.split(':')[0];
+    if (metroHost) return `http://${metroHost}:${PORT}`;
+
+    return `http://localhost:${PORT}`;
+};
 
 const api = axios.create({
-    // Before running your 'json-server', get your computer's IP address and
-    // update your baseURL to `http://your_ip_address_here:3333` and then run:
-    // `npx json-server --watch db.json --port 3333 --host your_ip_address_here`
-    //
-    // To access your server online without running json-server locally,
-    // you can set your baseURL to:
-    // `https://my-json-server.typicode.com/<your-github-username>/<your-github-repo>`
-    //
-    // To use `my-json-server`, make sure your `db.json` is located at the repo root.
-
-    baseURL: 'http://0.0.0.0:3333',
+    baseURL: getBaseUrl(),
+    timeout: 8000,
 });
 
 export const authenticateUser = (email: string, password: string): Promise<AxiosResponse> => {

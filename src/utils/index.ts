@@ -41,12 +41,15 @@ export const sanitizeEmail = (email: string): string => {
     return email.trim().toLowerCase();
 };
 
+// name:   letters, digits, _ + - in dot-separated parts (no leading, trailing or double dots)
+// domain: one or more "part." groups, then an ending of 2 or more letters (.it, .com, .br, .info)
+// Every part is separated by a dot, so the pattern can only match one way and never backtracks
+// exponentially on long input.
+const EMAIL_REGEX = /^[\w+-]+(\.[\w+-]+)*@([a-z0-9-]+\.)+[a-z]{2,}$/;
+
 export const validateEmail = (email: string): boolean => {
     if (!email) return false;
-    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/;
-    const sanitizedEmail = email.trim().toLowerCase();
-    const result = sanitizedEmail.match(regex);
-    return !!result?.[0];
+    return EMAIL_REGEX.test(sanitizeEmail(email));
 };
 
 export const parseDateFieldFromJSONResponse = (array: [], fieldName: string): any[] => {

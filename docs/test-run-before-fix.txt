@@ -1,0 +1,354 @@
+FAIL src/pages/__tests__/Login.test.tsx
+  Login screen
+    ✕ lets Luigi Carluccio log in without an "invalid email" message (691 ms)
+    ✕ lets John Silva log in without an "invalid email" message (508 ms)
+    ✓ still lets a .com user log in (60 ms)
+    ✕ sends the email trimmed and in lowercase (7 ms)
+    ✓ shows "invalid email" and does not call the server for a bad email (6 ms)
+    ✓ shows "invalid password" and does not call the server for a short password (9 ms)
+
+  ● Login screen › lets Luigi Carluccio log in without an "invalid email" message
+
+    expect(received).toBeNull()
+
+    Received: {"_fiber": {"_debugHookTypes": null, "_debugNeedsRemount": false, "_debugOwner": [FiberNode], "_debugSource": undefined, "actualDuration": 0, "actualStartTime": -1, "alternate": [FiberNode], "child": [FiberNode], "childLanes": 0, "deletions": null, "dependencies": null, "elementType": [Function Component], "flags": 1, "index": 1, "key": null, "lanes": 0, "memoizedProps": [Object], "memoizedState": null, "mode": 0, "pendingProps": [Object], "ref": null, "return": [FiberNode], "selfBaseDuration": 0, "sibling": null, "stateNode": [Component], "subtreeFlags": 4, "tag": 1, "treeBaseDuration": 0, "type": [Function Component], "updateQueue": [Object]}}
+
+      71 |         logIn(screen, email);
+      72 | 
+    > 73 |         expect(screen.queryByText('invalid email')).toBeNull();
+         |                                                     ^
+      74 |         expect(mockedAuthenticateUser).toHaveBeenCalledWith(email, '123456');
+      75 |         await waitFor(() => expect(screen.navigation.navigate).toHaveBeenCalledWith('EventsMap'));
+      76 |     });
+
+      at src/pages/__tests__/Login.test.tsx:73:53
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:24)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:27:7
+      at tryCallTwo (node_modules/promise/lib/core.js:45:5)
+      at doResolve (node_modules/promise/lib/core.js:200:13)
+      at new Promise (node_modules/promise/lib/core.js:66:3)
+      at apply (node_modules/@babel/runtime/helpers/asyncToGenerator.js:19:12)
+      at src/pages/__tests__/Login.test.tsx:76:6
+
+  ● Login screen › lets John Silva log in without an "invalid email" message
+
+    expect(received).toBeNull()
+
+    Received: {"_fiber": {"_debugHookTypes": null, "_debugNeedsRemount": false, "_debugOwner": [FiberNode], "_debugSource": undefined, "actualDuration": 0, "actualStartTime": -1, "alternate": [FiberNode], "child": [FiberNode], "childLanes": 0, "deletions": null, "dependencies": null, "elementType": [Function Component], "flags": 1, "index": 1, "key": null, "lanes": 0, "memoizedProps": [Object], "memoizedState": null, "mode": 0, "pendingProps": [Object], "ref": null, "return": [FiberNode], "selfBaseDuration": 0, "sibling": null, "stateNode": [Component], "subtreeFlags": 4, "tag": 1, "treeBaseDuration": 0, "type": [Function Component], "updateQueue": [Object]}}
+
+      71 |         logIn(screen, email);
+      72 | 
+    > 73 |         expect(screen.queryByText('invalid email')).toBeNull();
+         |                                                     ^
+      74 |         expect(mockedAuthenticateUser).toHaveBeenCalledWith(email, '123456');
+      75 |         await waitFor(() => expect(screen.navigation.navigate).toHaveBeenCalledWith('EventsMap'));
+      76 |     });
+
+      at src/pages/__tests__/Login.test.tsx:73:53
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:24)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:27:7
+      at tryCallTwo (node_modules/promise/lib/core.js:45:5)
+      at doResolve (node_modules/promise/lib/core.js:200:13)
+      at new Promise (node_modules/promise/lib/core.js:66:3)
+      at apply (node_modules/@babel/runtime/helpers/asyncToGenerator.js:19:12)
+      at src/pages/__tests__/Login.test.tsx:76:6
+
+  ● Login screen › sends the email trimmed and in lowercase
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: "luigi@carluccio.it", "123456"
+
+    Number of calls: 0
+
+      90 |         logIn(screen, '  Luigi@Carluccio.IT ');
+      91 | 
+    > 92 |         expect(mockedAuthenticateUser).toHaveBeenCalledWith('luigi@carluccio.it', '123456');
+         |                                        ^
+      93 |         await waitFor(() => expect(screen.navigation.navigate).toHaveBeenCalled());
+      94 |     });
+      95 | 
+
+      at Object.<anonymous> (src/pages/__tests__/Login.test.tsx:92:40)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:24)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:27:7
+      at tryCallTwo (node_modules/promise/lib/core.js:45:5)
+      at doResolve (node_modules/promise/lib/core.js:200:13)
+      at new Promise (node_modules/promise/lib/core.js:66:3)
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:19:12)
+
+FAIL src/utils/__tests__/validateEmail.test.ts
+  validateEmail
+    ✕ answers quickly for a long invalid input (no regex freeze) (562 ms)
+    users reported by QA (the bug)
+      ✕ accepts the email of Luigi Carluccio (luigi@carluccio.it) (1 ms)
+      ✕ accepts the email of John Silva (john@silva.com.br) (1 ms)
+    every registered user can pass the email check
+      ✓ accepts ulla.ulriksen@example.com
+      ✓ accepts yasemin.akyuz@example.com
+      ✕ accepts luigi@carluccio.it
+      ✕ accepts john@silva.com.br
+      ✓ accepts elif.aksit@example.com (1 ms)
+      ✓ accepts anne.vanwingerden@example.com
+      ✓ accepts gisele.oliveira@example.com
+      ✓ accepts sara.barnett@example.com
+      ✓ accepts azuma.gamez@example.com
+      ✓ accepts eva.young@example.com
+    other valid emails
+      ✓ accepts a .com address (ulla.ulriksen@example.com)
+      ✕ accepts a 2-letter country domain (someone@example.ca)
+      ✕ accepts a 2-letter country domain after a second-level domain (someone@example.co.uk) (1 ms)
+      ✕ accepts a 4-letter domain (someone@example.info)
+      ✕ accepts a long domain (someone@example.travel) (1 ms)
+      ✓ accepts a subdomain (someone@mail.example.org)
+      ✓ accepts a hyphen in the domain (someone@my-company.com)
+      ✓ accepts a hyphen and an underscore in the name (first-last_name@example.com)
+      ✕ accepts a plus tag in the name (someone+volunteam@example.com) (1 ms)
+      ✓ accepts digits (user123@example123.com)
+      ✕ accepts uppercase letters (Luigi@Carluccio.IT)
+      ✕ accepts spaces around it (  luigi@carluccio.it  )
+    invalid emails are still rejected
+      ✓ rejects an empty string ()
+      ✓ rejects only spaces (   )
+      ✓ rejects no @ (luigi.carluccio.it)
+      ✓ rejects no name before @ (@carluccio.it)
+      ✓ rejects no domain after @ (luigi@)
+      ✓ rejects no dot in the domain (luigi@carluccio)
+      ✓ rejects a 1-letter ending (luigi@carluccio.i)
+      ✓ rejects a domain ending in a dot (luigi@carluccio.it.)
+      ✓ rejects two dots in a row (luigi@carluccio..it)
+      ✓ rejects a name starting with a dot (.luigi@carluccio.it)
+      ✓ rejects two @ signs (luigi@@carluccio.it)
+      ✓ rejects a space inside (luigi carluccio@carluccio.it)
+      ✕ rejects digits in the ending (luigi@carluccio.123) (1 ms)
+  sanitizeEmail
+    ✓ trims spaces and lowercases (1 ms)
+
+  ● validateEmail › users reported by QA (the bug) › accepts the email of Luigi Carluccio (luigi@carluccio.it)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       9 |             ['John Silva', 'john@silva.com.br'],
+      10 |         ])('accepts the email of %s (%s)', (_name, email) => {
+    > 11 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      12 |         });
+      13 |     });
+      14 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:11:42
+
+  ● validateEmail › users reported by QA (the bug) › accepts the email of John Silva (john@silva.com.br)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       9 |             ['John Silva', 'john@silva.com.br'],
+      10 |         ])('accepts the email of %s (%s)', (_name, email) => {
+    > 11 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      12 |         });
+      13 |     });
+      14 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:11:42
+
+  ● validateEmail › every registered user can pass the email check › accepts luigi@carluccio.it
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      19 | 
+      20 |         it.each(emails)('accepts %s', (email) => {
+    > 21 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      22 |         });
+      23 |     });
+      24 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:21:42
+
+  ● validateEmail › every registered user can pass the email check › accepts john@silva.com.br
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      19 | 
+      20 |         it.each(emails)('accepts %s', (email) => {
+    > 21 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      22 |         });
+      23 |     });
+      24 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:21:42
+
+  ● validateEmail › other valid emails › accepts a 2-letter country domain (someone@example.ca)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › other valid emails › accepts a 2-letter country domain after a second-level domain (someone@example.co.uk)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › other valid emails › accepts a 4-letter domain (someone@example.info)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › other valid emails › accepts a long domain (someone@example.travel)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › other valid emails › accepts a plus tag in the name (someone+volunteam@example.com)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › other valid emails › accepts uppercase letters (Luigi@Carluccio.IT)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › other valid emails › accepts spaces around it (  luigi@carluccio.it  )
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      38 |             ['spaces around it', '  luigi@carluccio.it  '],
+      39 |         ])('accepts %s (%s)', (_case, email) => {
+    > 40 |             expect(validateEmail(email)).toBe(true);
+         |                                          ^
+      41 |         });
+      42 |     });
+      43 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:40:42
+
+  ● validateEmail › invalid emails are still rejected › rejects digits in the ending (luigi@carluccio.123)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      58 |             ['digits in the ending', 'luigi@carluccio.123'],
+      59 |         ])('rejects %s (%s)', (_case, email) => {
+    > 60 |             expect(validateEmail(email)).toBe(false);
+         |                                          ^
+      61 |         });
+      62 |     });
+      63 | 
+
+      at src/utils/__tests__/validateEmail.test.ts:60:42
+
+  ● validateEmail › answers quickly for a long invalid input (no regex freeze)
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   562
+
+      68 |         validateEmail(longInput);
+      69 |         validateEmail(`${'a.'.repeat(40)}@${'b-'.repeat(40)}!`);
+    > 70 |         expect(Date.now() - start).toBeLessThan(100);
+         |                                    ^
+      71 |     });
+      72 | });
+      73 | 
+
+      at Object.<anonymous> (src/utils/__tests__/validateEmail.test.ts:70:36)
+
+Test Suites: 2 failed, 2 total
+Tests:       16 failed, 29 passed, 45 total
+Snapshots:   0 total
+Time:        4.897 s, estimated 6 s

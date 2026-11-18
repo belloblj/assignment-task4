@@ -19,6 +19,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ios: {
         supportsTablet: true,
     },
+    android: {
+        // Needed for a local development build (`npx expo run:android`).
+        package: 'com.volunteam.app',
+        config: {
+            // Read from an environment variable so the key is never committed to Git.
+            googleMaps: { apiKey: process.env.GOOGLE_MAPS_API_KEY },
+        },
+    },
     web: {
         favicon: './assets/favicon.png',
     },
@@ -36,5 +44,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             projectId: '954f3b8e-1155-4f8f-8601-a2b3126da39e',
         },
         IMGBB_API_KEY: process.env.IMGBB_API_KEY,
+        API_URL: process.env.API_URL,
     },
 });
